@@ -1,6 +1,7 @@
 <?php
 namespace Flaubert\Infrastructure\Application;
 
+use ReflectionClass;
 use Interop\Container\ContainerInterface;
 
 abstract class Application
@@ -31,9 +32,14 @@ abstract class Application
     }
 
     /**
-     * Empty constructor
+     * Constructor
      */
-    protected function __construct() {}
+    protected function __construct()
+    {
+        $actualAppClass = new ReflectionClass(get_called_class());
+
+        $this->path = $this->path ?: dirname($actualAppClass->getFilename());
+    }
 
     /**
      * Application name
