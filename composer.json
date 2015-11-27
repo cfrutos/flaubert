@@ -1,6 +1,6 @@
 {
     "name": "cfrutos/flaubert",
-    "type": "library",
+    "type": "package",
     "authors": [
         {
             "name": "Carlos Frutos",
