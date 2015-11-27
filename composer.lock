@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "ec5661edbb6b1929d14d39e11cabaf5b",
-    "content-hash": "8cca2a45b7a9b5aaec3ef19c84edccd7",
+    "hash": "58db8daeceb7a45890c697d1b4971239",
+    "content-hash": "64ed9625f3007a4b6bf92bd03ce75abe",
     "packages": [
         {
             "name": "caseyamcl/configula",

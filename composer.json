@@ -1,6 +1,8 @@
 {
     "name": "cfrutos/flaubert",
-    "type": "package",
+    "description": "Common package",
+    "type": "library",
+    "version": "1.0.0",
     "authors": [
         {
             "name": "Carlos Frutos",
