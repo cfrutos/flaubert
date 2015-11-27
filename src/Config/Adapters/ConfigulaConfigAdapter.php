@@ -2,6 +2,7 @@
 namespace Flaubert\Config\Adapters;
 
 use PhpInterop\Config\IConfiguration;
+use Configula\Config;
 
 class ConfigulaConfigAdapter implements IConfiguration
 {
@@ -12,7 +13,7 @@ class ConfigulaConfigAdapter implements IConfiguration
 
     public function __construct($configPath)
     {
-        $this->wrappedConfig = new \Configula\Config($configPath);
+        $this->wrappedConfig = new Config($configPath);
     }
 
     /**

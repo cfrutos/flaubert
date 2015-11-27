@@ -1,0 +1,21 @@
+{
+    "name": "cfrutos/flaubert",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Carlos Frutos",
+            "email": "carlos@kiwing.it"
+        }
+    ],
+    "autoload": {
+    	"psr-4": {
+    		"Flaubert\\": "src/"
+    	}
+    },
+    "require": {
+        "illuminate/filesystem": "^5.1",
+        "php-di/php-di": "^5.1",
+        "container-interop/container-interop": "^1.1",
+        "caseyamcl/Configula": "^2.4"
+    }
+}
