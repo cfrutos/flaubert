@@ -121,7 +121,7 @@ class Uri
         static $parts = ['scheme', 'host', 'port', 'path', 'query'];
         static $allowedSchemes = ['http', 'https'];
 
-        assert(in_array($partName, $partName), 'Part name is invalid');
+        assert(in_array($partName, $parts), 'Part name is invalid');
 
         switch ($partName) {
             case 'scheme':
