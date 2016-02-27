@@ -180,7 +180,7 @@ class Uri
             throw new InvalidArgumentException('Host is required by string conversion');
         }
 
-        $schemaPart = $this->schema ?: 'http';
+        $schemePart = $this->scheme ?: 'http';
         $portPart = $this->port ? (':' . $this->port) : '';
         $pathPart = $this->path ?: '/';
 
@@ -194,7 +194,7 @@ class Uri
             $queryPart = '';
         }
 
-        return "{$schemaPart}://{$this->host}{$portPart}{$pathPart}{$queryPart}";
+        return "{$schemePart}://{$this->host}{$portPart}{$pathPart}{$queryPart}";
     }
 
     /**
