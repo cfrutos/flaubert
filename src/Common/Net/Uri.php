@@ -170,6 +170,8 @@ class Uri
     }
 
     /**
+     * String representation
+     *
      * @return string
      */
     public function __toString()
