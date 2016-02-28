@@ -3,7 +3,7 @@ namespace Flaubert\Persistence\Doctrine\Mapping;
 
 use Doctrine\Common\Persistence\Mapping\ClassMetadata;
 use Doctrine\Common\Persistence\Mapping\Driver\FileLocator;
-use App\Common\Utils\NamingHelper;
+use Flaubert\Common\Utils\NamingHelper;
 use Doctrine\Common\Persistence\Mapping\Driver\MappingDriver;
 
 /**

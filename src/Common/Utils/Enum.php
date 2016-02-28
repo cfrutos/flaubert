@@ -35,4 +35,18 @@ abstract class Enum
         $selfClass = get_called_class();
         return in_array($value, $selfClass::all());
     }
+
+    /**
+     * Ensure the value belongs to this enum. Otherwise, raises an exception
+     *
+     * @param mixed $value Value to be checked
+     *
+     * @throws InvalidArgumentException If the value doesn't belong to this enum
+     */
+    public static function check($value)
+    {
+        if (!static::contains($value)) {
+            throw new InvalidArgumentException('The input value doesn\'t belong to this enum');
+        }
+    }
 }
