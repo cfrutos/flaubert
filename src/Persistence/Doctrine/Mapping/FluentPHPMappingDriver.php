@@ -47,7 +47,7 @@ class FluentPHPMappingDriver implements MappingDriver
      */
     public function __construct(
         $locator,
-        $entitiesNamespace,
+        $entitiesNamespaces,
         $mappingNamespace,
         $fileExtension = null
     ) {
@@ -56,7 +56,11 @@ class FluentPHPMappingDriver implements MappingDriver
         if ($locator instanceof FileLocator) {
             $this->locator = $locator;
         } else {
-            $this->locator = new CustomFileLocator((array)$locator, $entitiesNamespace, $fileExtension);
+            $this->locator = new CustomFileLocator(
+                (array) $locator,
+                (array) $entitiesNamespaces,
+                $fileExtension
+            );
         }
 
         $this->mappingNamespace = $mappingNamespace;

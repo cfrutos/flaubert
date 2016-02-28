@@ -9,14 +9,14 @@ class CustomFileLocator extends DefaultFileLocator
     const MAPPING_SUFFIX = 'Mapping';
 
     /**
-     * @var string
+     * @var string[]
      */
-    protected $entitiesNamespace;
+    protected $entitiesNamespaces;
 
-    public function __construct($locator, $entitiesNamespace, $fileExtension)
+    public function __construct($locator, $entitiesNamespaces, $fileExtension)
     {
         parent::__construct($locator, $fileExtension);
-        $this->entitiesNamespace = $entitiesNamespace;
+        $this->entitiesNamespaces = (array) $entitiesNamespaces;
     }
 
     /**
@@ -60,8 +60,15 @@ class CustomFileLocator extends DefaultFileLocator
                         continue;
                     }
 
-                    // NOTE: All files found here means classes are not transient!
-                    $classes[] = $this->entitiesNamespace . '\\' . preg_replace('/Mapping$/', '', $fileName);
+                    foreach ($this->entitiesNamespaces as $entityNamespace) {
+                        $candidateClass = $entityNamespace . '\\' . preg_replace('/Mapping$/', '', $fileName);
+
+                        // NOTE: All files found here means classes are not transient!
+                        if (class_exists($candidateClass)) {
+                            $classes[] = $candidateClass;
+                            break;
+                        }
+                    }
                 }
             }
         }
