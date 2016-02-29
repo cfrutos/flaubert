@@ -54,7 +54,7 @@ class Uri
             $this->host     = (string) $urlParts['host'];
             $this->port     = !empty($urlParts['port']) ? ((int) $urlParts['port']) : '';
             $this->path     = (string) $urlParts['path'];
-            $this->setPart('queryString', $urlParts['query']);
+            $this->setPart('queryString', !empty($urlParts['query']) ? $urlParts['query'] : '');
         }
     }
 
