@@ -31,6 +31,11 @@ class Uri
     protected $path;
 
     /**
+     * @var string
+     */
+    protected $queryString;
+
+    /**
      * @var array
      */
     protected $query = [];
@@ -49,12 +54,7 @@ class Uri
             $this->host     = (string) $urlParts['host'];
             $this->port     = !empty($urlParts['port']) ? ((int) $urlParts['port']) : '';
             $this->path     = (string) $urlParts['path'];
-
-            if (!empty($urlParts['query'])) {
-                $queryParts = [];
-                parse_str($urlParts['query'], $queryParts);
-                $this->query = $queryParts;
-            }
+            $this->setPart('queryString', $urlParts['query']);
         }
     }
 
@@ -109,6 +109,16 @@ class Uri
     }
 
     /**
+     * Get the query string
+     *
+     * @return string
+     */
+    public function queryString()
+    {
+        return $this->queryString;
+    }
+
+    /**
      * Set part
      *
      * @param string $partName Part name
@@ -118,7 +128,7 @@ class Uri
      */
     public function setPart($partName, $value)
     {
-        static $parts = ['scheme', 'host', 'port', 'path', 'query'];
+        static $parts = ['scheme', 'host', 'port', 'path', 'query', 'queryString'];
         static $allowedSchemes = ['http', 'https'];
 
         assert(in_array($partName, $parts), 'Part name is invalid');
@@ -148,6 +158,25 @@ class Uri
             case 'query':
                 assert(is_null($value) || is_array($value), 'Query must be an array');
                 $this->query = (array) $value;
+
+                $joinedQueryParts = [];
+                foreach ($value as $key => $val) {
+                    $joinedQueryParts[] = "{$key}={$val}";
+                }
+
+                $this->queryString = implode('&', $joinedQueryParts);
+                break;
+
+            case 'queryString':
+                $this->queryString = (string) $value; 
+
+                if (!empty($this->queryString)) {
+                    $queryParts = [];
+                    parse_str($this->queryString, $queryParts);
+                    $this->query = $queryParts;
+                } else {
+                    $this->query = [];
+                }
                 break;
         }
 
@@ -183,18 +212,9 @@ class Uri
         $schemePart = $this->scheme ?: 'http';
         $portPart = $this->port ? (':' . $this->port) : '';
         $pathPart = $this->path ?: '/';
+        $queryString = !empty($this->queryString) ? "?{$this->queryString}" : '';
 
-        if (!empty($this->query)) {
-            $queryComponents = [];
-            foreach ($this->query as $key => $value) {
-                $queryComponents[] = $key . '=' . $value;
-            }
-            $queryPart = '?' . implode('&', $queryComponents);
-        } else {
-            $queryPart = '';
-        }
-
-        return "{$schemePart}://{$this->host}{$portPart}{$pathPart}{$queryPart}";
+        return "{$schemePart}://{$this->host}{$portPart}{$pathPart}{$queryString}";
     }
 
     /**
